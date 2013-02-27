@@ -1,15 +1,17 @@
 
 /** Some game functions */
 
+/** Модуль с функциями, которые я не захотел засунуть в другие модули */
 
-// Render field
+
 function init()
 {
   /** Init */
-  var player_sea = "";
-  var moron_sea = "";
-  var i, j;
 
+  /**
+  *   Создает и заполняет нулями массивы player.ships и moron.ships
+  *   А в С, кстати, это делается автоматически, для глобальных массивов, люблю его <3
+  */
 
   // Initialize player.ships[][], moron.ships[][] with 0 and moron.clearPlayerSectors[]
   for(var i = 0; i < 10; ++i) {
@@ -19,14 +21,15 @@ function init()
     for(var j = 0; j < 10; ++j) {
       player.ships[i][j] = 0;
       moron.ships[i][j] = 0;
+
+      // Сует сектор (клетку) в clearPlayerSectors - массив со свободными (еще не атакованными) секорами
+      // Координаты записываются в виде 10y + x
       moron.clearPlayerSectors.push(i * 10 + j);
     }
   }
 
+  // Render fields
   view.renderFields();
-
-  // DEBUG:
-  // startGame();
 
 }
 
@@ -35,9 +38,15 @@ function init()
 function startGame()
 {
   /** Start game */
+
+  /**
+  *   Вызывается после того, как пользователь валидно расставил свои корабли
+  *   Расставляет корабли компьютера и делает поле компьютера видимым
+  */
+
   moron.locateShips();
 
-  // View: show moron field
+  // Show moron field
   view.moron.displayField();
 
 }
